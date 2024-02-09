@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get("/directors/:path_id", { :controller => "directors", :action => "show" })
 
   post("/insert_director", { :controller => "directors", :action => "create"})
+  post("/modify_director/:id", { :controller => "directors", :action => "modify"})
 
   #Movie routes
   get("/movies", { :controller => "movies", :action => "index" })

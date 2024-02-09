@@ -55,4 +55,22 @@ class DirectorsController < ApplicationController
 
   end
 
+  def modify
+    the_id = params.fetch("id")
+    @director = Director.where({ :id => the_id }).at(0)
+
+    @director.name = params.fetch("query_name")
+    @director.dob = params.fetch("query_dob")
+    @director.bio = params.fetch("query_bio")
+    @director.image = params.fetch("query_image")
+
+    if @director.valid?
+      @director.save
+      redirect_to("/directors/#{@director.id}", { :notice => "Director updated successfully."})
+    else
+      redirect_to("/directors/#{@director.id}", { :notice => "Director failed to update successfully."})
+    end
+
+  end
+
 end
