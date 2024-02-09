@@ -31,14 +31,13 @@ class DirectorsController < ApplicationController
       all.
       where.not({ :dob => nil }).
       order({ :dob => :asc })
-      
+
     @eldest = directors_by_dob_asc.at(0)
 
     render({ :template => "director_templates/eldest" })
   end
 
   def create
-
     @director = Director.new
     @director.name = params.fetch("query_name")
     @director.dob = params.fetch("query_dob")
@@ -47,12 +46,10 @@ class DirectorsController < ApplicationController
 
     if @director.valid?
       @director.save
-      redirect_to("/directors", { :notice => "Director created successfully."})
+      redirect_to("/directors", { :notice => "Director created successfully." })
     else
-      redirect_to("/directors", { :notice => "Director failed to create successfully."})
+      redirect_to("/directors", { :notice => "Director failed to create successfully." })
     end
-
-
   end
 
   def modify
@@ -66,11 +63,18 @@ class DirectorsController < ApplicationController
 
     if @director.valid?
       @director.save
-      redirect_to("/directors/#{@director.id}", { :notice => "Director updated successfully."})
+      redirect_to("/directors/#{@director.id}", { :notice => "Director updated successfully." })
     else
-      redirect_to("/directors/#{@director.id}", { :notice => "Director failed to update successfully."})
+      redirect_to("/directors/#{@director.id}", { :notice => "Director failed to update successfully." })
     end
-
   end
 
+  def destroy
+    the_id = params.fetch("id")
+    @director = Director.where({ :id => the_id }).at(0)
+
+    @director.destroy
+
+    redirect_to("/directors", { :notice => "Director deleted successfully." })
+  end
 end
