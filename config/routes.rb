@@ -14,10 +14,11 @@ Rails.application.routes.draw do
 
   #Movie routes
   get("/movies", { :controller => "movies", :action => "index" })
+  post("/insert_movie", { :controller => "movies", :action => "create"})
   get("/movies/:path_id", { :controller => "movies", :action => "show" })
-  post("/insert_movie", { :controller => "directors", :action => "create"})
-  post("/modify_movie/:id", { :controller => "directors", :action => "modify"})
-  get("/delete_movie/:id", {:controller => "directors", :action => "destroy" })
+  
+  post("/modify_movie/:id", { :controller => "movies", :action => "modify"})
+  get("/delete_movie/:id", {:controller => "movies", :action => "destroy" })
   
   #Actor routes
   get("/actors", { :controller => "actors", :action => "index" })
